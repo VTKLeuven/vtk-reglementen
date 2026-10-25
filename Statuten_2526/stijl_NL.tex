@@ -1,0 +1,85 @@
+%% Style by Bram Gotink, as a clone of the LyX style orginally used, but in clean code.
+\documentclass[dutch]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% XeLaTeX/Tectonic negeren inputenc: zet deze tekens om, anders verdwijnen ze
+% of worden ze fout gedrukt (§ werd ğ). Onder pdflatex verandert er niets.
+\usepackage{iftex}
+\ifTUTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{§}{\S}
+  \newunicodechar{‘}{\textquoteleft}
+  \newunicodechar{’}{\textquoteright}
+  \newunicodechar{“}{\textquotedblleft}
+  \newunicodechar{”}{\textquotedblright}
+\fi
+\usepackage{geometry}
+\geometry{verbose,letterpaper,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{textcomp}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage{ulem}
+\usepackage{hyperref}
+%\hypersetup{colorlinks=false,urlcolor=cyan,pdfborder=0 0 0}
+
+% VTK Styling
+
+% subsections worden gebruikt als artikels in het HR en Verkiezingsreglement,
+% Deze nummering moet doorlopen
+\counterwithout{subsection}{section}
+
+% parts zijn "Titel I - De vereniging"
+\def\thepart{\Roman{part}}
+\def\labelpart{Titel}
+\titleformat{\part}
+            [hang]
+            {\normalfont\huge\bfseries}
+            {\labelpart~\thepart~-}
+            {10pt}
+            {}
+% sections zijn "Artikel 1. Naam" enzo
+\def\thesection{\arabic{section}}
+\def\labelsection{Artikel}
+\titleformat{\section}
+            [hang]
+            {\normalfont\Large\bfseries}
+            {\labelsection~\thesection.}
+            {10pt}
+            {}
+% subsections zijn "Artikel 1. Naam", enkel gebruikt in HR
+% (daar zijn sections "Afdeling 1 - Naam", zie de .tex van HR)
+\def\thesubsection{\arabic{subsection}}
+\def\labelsubsection{Artikel}
+\titleformat{\subsection}
+			[hang]
+			{\normalfont\large\bfseries}
+			{\labelsubsection~\thesubsection.}
+			{10pt}
+			{}
+% hoogste niveau lijsten zijn §1. etc
+\def\theenumi{\S\arabic{enumi}}
+\def\labelenumi{\theenumi.}
+% tweede niveau wordt eigenlijke eerste niveau
+\def\theenumii{\arabic{enumii}}
+\def\labelenumii{\theenumii.}
+% eerste niveau itemize komt enkel voor in een lijst
+\def\labelitemi{}
+% layout de lijsten wat mooier
+\setlist[enumerate,1]{align=left,labelindent=0pt,labelsep=3em,leftmargin=5em}
+\setlist[enumerate,2]{align=left}
+\setlist[itemize,1]{align=left,labelindent=0pt,labelsep=3em,leftmargin=5em,labelwidth=0pt}
+
+% locate changes and color them red.
+\newenvironment{aanpassing}{\color{red}}{}
+\newcommand{\aangepast}[1]{\begin{aanpassing}#1\end{aanpassing}}
+\newcommand{\verwijderd}[1]{\aangepast{\sout{#1}}}
+% nieuwe (voorgestelde) tekst in het groen
+\definecolor{vtkgroen}{rgb}{0,0.55,0}
+\newcommand{\toegevoegd}[1]{{\color{vtkgroen}#1}}
+\newcommand{\draft}{\textit{\textbf{draft}}}
+
+\usepackage{babel}
+
